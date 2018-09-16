@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import Header from './common/header';
+import store from './store';
+console.log(store)
 
+// Provider把store里的数据都提供给了内部的Header组件
+// Provider里面所有的组件都有能力去使用store里的数据
 class App extends Component {
   render() {
     return (
-      <div>
+      <Provider store={store}>
         <Header/>
-      </div>
+      </Provider>
     );
   }
 }
