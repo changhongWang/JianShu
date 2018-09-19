@@ -44,6 +44,11 @@ export const SearchWrapper = styled.div`
   position: relative;
   display: inline-block;
 `;
+
+export const SearchInfo = styled.div`
+
+`
+
 export const NavSearch = styled.input.attrs({
     placeholder: '搜索'
 })`

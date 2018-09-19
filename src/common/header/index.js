@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { HeaderWrapper, Logo, SearchWrapper, Nav, NavItem, NavSearch, Addition, Button } from './style';
+import { HeaderWrapper, Logo, SearchWrapper, Nav, NavItem, NavSearch, SearchInfo, Addition, Button } from './style';
 import { CSSTransition } from 'react-transition-group';
 import { actionCreators } from './store';
 
@@ -23,6 +23,7 @@ const Header = (props) => {
               onBlur={props.handleSearchBlur}
             ></NavSearch>
           </CSSTransition>
+          <SearchInfo></SearchInfo>
         </SearchWrapper>
         <NavItem className='right'>登录</NavItem>
         <NavItem className='right'>Aa</NavItem>
@@ -37,7 +38,7 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    focused: state.header.focused
+    focused: state.getIn(['focused', 'header'])
   }
 }
 
