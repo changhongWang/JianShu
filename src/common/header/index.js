@@ -7,7 +7,6 @@ import { CSSTransition } from 'react-transition-group';
 import { actionCreators } from './store';
 
 const getListArea = (show) => {
-  console.log(show)
   if (show) {
     return (
       <SearchInfo>
@@ -64,7 +63,7 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    focused: state.getIn(['focused', 'header'])
+    focused: state.getIn(['header', 'focused'])
   }
 }
 
