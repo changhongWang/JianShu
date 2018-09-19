@@ -1,8 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { HeaderWrapper, Logo, SearchWrapper, Nav, NavItem, NavSearch, SearchInfo, Addition, Button } from './style';
+import { HeaderWrapper, Logo, SearchWrapper, Nav, NavItem, NavSearch,
+  SearchInfo, SearchInfoTitle, SearchInfoSwitch, SearchInfoItem, SearchInfoList,
+  Addition, Button } from './style';
 import { CSSTransition } from 'react-transition-group';
 import { actionCreators } from './store';
+
+const getListArea = (show) => {
+  console.log(show)
+  if (show) {
+    return (
+      <SearchInfo>
+        <SearchInfoTitle>热门搜索
+          <SearchInfoSwitch>换一批</SearchInfoSwitch>
+        </SearchInfoTitle>
+        <SearchInfoList>
+          <SearchInfoItem>教育</SearchInfoItem>
+          <SearchInfoItem>教育</SearchInfoItem>
+          <SearchInfoItem>教育</SearchInfoItem>
+          <SearchInfoItem>教育</SearchInfoItem>
+          <SearchInfoItem>教育</SearchInfoItem>
+          <SearchInfoItem>教育</SearchInfoItem>
+          <SearchInfoItem>教育</SearchInfoItem>
+        </SearchInfoList>
+      </SearchInfo>
+    )
+  } else {
+    return null;
+  }
+}
 
 const Header = (props) => {
   return (
@@ -23,7 +49,7 @@ const Header = (props) => {
               onBlur={props.handleSearchBlur}
             ></NavSearch>
           </CSSTransition>
-          <SearchInfo></SearchInfo>
+          {getListArea(props.focused)}
         </SearchWrapper>
         <NavItem className='right'>登录</NavItem>
         <NavItem className='right'>Aa</NavItem>
