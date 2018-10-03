@@ -9,21 +9,23 @@ import { actionCreators } from './store';
 class Header extends Component{
 
   getListArea () {
-    const {focused, mouseIn, list, page, handleMouseEnter, handleMouseLeave} = this.props;
+    const {focused, mouseIn, list, page, totalPage, handleMouseEnter, handleMouseLeave, handleChangePage} = this.props;
     const newList = list.toJS();
     const pageList = [];
 
-    for (let i = (page - 1) * 10; i< page * 10; i++) {
-      pageList.push(
-        <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
-      )
+    if (newList.length) {
+      for (let i = (page - 1) * 10; i < page * 10; i++) {
+        pageList.push(
+          <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+        )
+      }
     }
 
     if (focused || mouseIn) {
       return (
         <SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <SearchInfoTitle>热门搜索
-            <SearchInfoSwitch>换一批</SearchInfoSwitch>
+            <SearchInfoSwitch onClick={() => {handleChangePage(page, totalPage)}}>换一批</SearchInfoSwitch>
           </SearchInfoTitle>
           <SearchInfoList>
             {pageList}
@@ -73,7 +75,8 @@ const mapStateToProps = (state) => {
     focused: state.getIn(['header', 'focused']),
     mouseIn: state.getIn(['header', 'mouseIn']),
     list: state.getIn(['header', 'list']),
-    page: state.getIn(['header', 'page'])
+    page: state.getIn(['header', 'page']),
+    totalPage: state.getIn(['header', 'totalPage'])
   }
 }
 
@@ -91,6 +94,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleMouseLeave () {
       dispatch(actionCreators.mouseLeave());
+    },
+    handleChangePage (page, totalPage) {
+      const action = page < totalPage ? actionCreators.changePage(page+1) : actionCreators.changePage(1);
+      dispatch(action);
     }
   }
 }
