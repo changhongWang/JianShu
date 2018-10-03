@@ -9,19 +9,24 @@ import { actionCreators } from './store';
 class Header extends Component{
 
   getListArea () {
-    const {focused, list} = this.props;
-    if (focused) {
+    const {focused, mouseIn, list, page, handleMouseEnter, handleMouseLeave} = this.props;
+    const newList = list.toJS();
+    const pageList = [];
+
+    for (let i = (page - 1) * 10; i< page * 10; i++) {
+      pageList.push(
+        <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+      )
+    }
+
+    if (focused || mouseIn) {
       return (
-        <SearchInfo>
+        <SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <SearchInfoTitle>热门搜索
             <SearchInfoSwitch>换一批</SearchInfoSwitch>
           </SearchInfoTitle>
           <SearchInfoList>
-            {
-              list.map((item) => {
-                return <SearchInfoItem key={item}>{item}</SearchInfoItem>
-              })
-            }
+            {pageList}
           </SearchInfoList>
         </SearchInfo>
       )
@@ -66,7 +71,9 @@ class Header extends Component{
 const mapStateToProps = (state) => {
   return {
     focused: state.getIn(['header', 'focused']),
-    list: state.getIn(['header', 'list'])
+    mouseIn: state.getIn(['header', 'mouseIn']),
+    list: state.getIn(['header', 'list']),
+    page: state.getIn(['header', 'page'])
   }
 }
 
@@ -78,6 +85,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleSearchBlur () {
       dispatch(actionCreators.searchBlur());
+    },
+    handleMouseEnter () {
+      dispatch(actionCreators.mouseEnter());
+    },
+    handleMouseLeave () {
+      dispatch(actionCreators.mouseLeave());
     }
   }
 }
