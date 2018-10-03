@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { HeaderWrapper, Logo, SearchWrapper, Nav, NavItem, NavSearch,
   SearchInfo, SearchInfoTitle, SearchInfoSwitch, SearchInfoItem, SearchInfoList,
@@ -6,70 +6,74 @@ import { HeaderWrapper, Logo, SearchWrapper, Nav, NavItem, NavSearch,
 import { CSSTransition } from 'react-transition-group';
 import { actionCreators } from './store';
 
-const getListArea = (show) => {
-  if (show) {
-    return (
-      <SearchInfo>
-        <SearchInfoTitle>热门搜索
-          <SearchInfoSwitch>换一批</SearchInfoSwitch>
-        </SearchInfoTitle>
-        <SearchInfoList>
-          <SearchInfoItem>教育</SearchInfoItem>
-          <SearchInfoItem>教育</SearchInfoItem>
-          <SearchInfoItem>教育</SearchInfoItem>
-          <SearchInfoItem>教育</SearchInfoItem>
-          <SearchInfoItem>教育</SearchInfoItem>
-          <SearchInfoItem>教育</SearchInfoItem>
-          <SearchInfoItem>教育</SearchInfoItem>
-        </SearchInfoList>
-      </SearchInfo>
-    )
-  } else {
-    return null;
-  }
-}
+class Header extends Component{
 
-const Header = (props) => {
-  return (
-    <HeaderWrapper>
-      <Logo href="/"/>
-      <Nav>
-        <NavItem className='left active'>首页</NavItem>
-        <NavItem className='left'>下载App</NavItem>
-        <SearchWrapper>
-          <CSSTransition
-            timeout={200}
-            in={props.focused}
-            classNames="slide"
-          >
-            <NavSearch
-              className={props.focused ? 'focused' : ''}
-              onFocus={props.handleSearchFocus}
-              onBlur={props.handleSearchBlur}
-            ></NavSearch>
-          </CSSTransition>
-          {getListArea(props.focused)}
-        </SearchWrapper>
-        <NavItem className='right'>登录</NavItem>
-        <NavItem className='right'>Aa</NavItem>
-        <Addition>
-          <Button className='writing'>写文章</Button>
-          <Button className='reg'>注册</Button>
-        </Addition>
-      </Nav>
-    </HeaderWrapper>
-  )
+  getListArea () {
+    const {focused, list} = this.props;
+    if (focused) {
+      return (
+        <SearchInfo>
+          <SearchInfoTitle>热门搜索
+            <SearchInfoSwitch>换一批</SearchInfoSwitch>
+          </SearchInfoTitle>
+          <SearchInfoList>
+            {
+              list.map((item) => {
+                return <SearchInfoItem key={item}>{item}</SearchInfoItem>
+              })
+            }
+          </SearchInfoList>
+        </SearchInfo>
+      )
+    } else {
+      return null;
+    }
+  }
+
+  render () {
+    return (
+      <HeaderWrapper>
+        <Logo href="/"/>
+        <Nav>
+          <NavItem className='left active'>首页</NavItem>
+          <NavItem className='left'>下载App</NavItem>
+          <SearchWrapper>
+            <CSSTransition
+              timeout={200}
+              in={this.props.focused}
+              classNames="slide"
+            >
+              <NavSearch
+                className={this.props.focused ? 'focused' : ''}
+                onFocus={this.props.handleSearchFocus}
+                onBlur={this.props.handleSearchBlur}
+              ></NavSearch>
+            </CSSTransition>
+            {this.getListArea()}
+          </SearchWrapper>
+          <NavItem className='right'>登录</NavItem>
+          <NavItem className='right'>Aa</NavItem>
+          <Addition>
+            <Button className='writing'>写文章</Button>
+            <Button className='reg'>注册</Button>
+          </Addition>
+        </Nav>
+      </HeaderWrapper>
+    )
+  }
 }
 
 const mapStateToProps = (state) => {
   return {
-    focused: state.getIn(['header', 'focused'])
+    focused: state.getIn(['header', 'focused']),
+    list: state.getIn(['header', 'list'])
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     handleSearchFocus () {
+      dispatch(actionCreators.getList());
       dispatch(actionCreators.searchFocus());
     },
     handleSearchBlur () {
