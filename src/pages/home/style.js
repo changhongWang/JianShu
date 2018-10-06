@@ -14,13 +14,14 @@ export const HomeLeft = styled.div`
   .banner-img {
     border-radius: 5px;
     width: 625px;
-    height: 250px;
+    height: 270px;
   }
 `;
 
 export const HomeRight = styled.div`
-  width: 240px;
   float: right;
+  padding-top: 30px;
+  width: 280px;
 `;
 
 export const TopicWrapper = styled.div`
@@ -76,5 +77,22 @@ export const ListInfo = styled.div`
     line-height: 24px;
     font-size: 13px;
     color: #999;
+  }
+`;
+
+export const RecommendItem = styled.div`
+  overflow: hidden;
+  width: 100%;
+  min-height: 50px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+  .pic-wrapper {
+    display: inline-block;
+    height: 100%;
+  }
+  .recommend-pic {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
   }
 `;
