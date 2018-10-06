@@ -96,3 +96,12 @@ export const RecommendItem = styled.div`
     height: 100%;
   }
 `;
+
+export const WriterWrapper = styled.div`
+  width: 278px;
+  height: 300px;
+  line-height: 300px;
+  border: 1px solid #dcdcdc;
+  border-radius: 3px;
+  text-align: center;
+`;
