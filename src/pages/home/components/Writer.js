@@ -10,3 +10,6 @@ class Writer extends PureComponent {
 }
 
 export default Writer;
+
+// 剩余： 正确的页面跳转方式
+// 错误的： 用 a 标签，每次都重新加载html 文件
