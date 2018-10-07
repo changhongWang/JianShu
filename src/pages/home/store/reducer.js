@@ -1,57 +1,20 @@
 import { fromJS } from 'immutable';
+import * as constants from './constants';
 
 const defaultState =fromJS({
-  topicList: [{
-    id: '1',
-    title: '手绘',
-    imgUrl: 'https://upload.jianshu.io/collections/images/283250/%E6%BC%AB%E7%94%BB%E4%B8%93%E9%A2%98.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64'
-  },
-  {
-    id: '2',
-    title: '读书',
-    imgUrl: 'https://upload.jianshu.io/collections/images/4/sy_20091020135145113016.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64'
-  }],
-  articleList: [{
-    id: '0001',
-    title: '利用Python写了一个翻译工具！然后就成为了学弟眼中的大神了！',
-    desc: '1.爬虫前的分析 因为要实现有道翻译的翻译功能，就需要找到它的接口，打开审查元素，来到网络监听窗口(Network)，查看API接口。 通过查看...',
-    imgUrl: 'https://upload-images.jianshu.io/upload_images/12649257-479b4c2d922e5a8d?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240'
-  },{
-    id: '0002',
-    title: '马背上的女人一丝不挂，人们只知道表面的低俗，却不知道画背后的意义',
-    desc: '导读：马背上的女人一丝不挂，人们只知道表面的低俗，却不知道画背后的意义 不知道大家知不知道关于这样的一幅画，一个没有穿衣服的女性坐在白色的马上，...',
-    imgUrl: 'https://upload-images.jianshu.io/upload_images/13466963-066f190031a2095d.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240'
-  }],
-  recommendList: [{
-    id: '001',
-    title: '7日热门',
-    jumpUrl: '/trending/weekly?utm_medium=index-banner-s&utm_source=desktop',
-    imgUrl: '//cdn2.jianshu.io/assets/web/banner-s-3-7123fd94750759acf7eca05b871e9d17.png'
-  },{
-    id: '002',
-    title: '30日热门',
-    jumpUrl: '/trending/monthly?utm_medium=index-banner-s&utm_source=desktop',
-    imgUrl: 'https://cdn2.jianshu.io/assets/web/banner-s-4-b70da70d679593510ac93a172dfbaeaa.png'
-  },{
-    id: '003',
-    title: '优选连载',
-    jumpUrl: '/mobile/books?category_id=284',
-    imgUrl: 'https://cdn2.jianshu.io/assets/web/banner-s-7-1a0222c91694a1f38e610be4bf9669be.png'
-  },{
-    id: '004',
-    title: '简书版权',
-    jumpUrl: '/publications',
-    imgUrl: 'https://cdn2.jianshu.io/assets/web/banner-s-5-4ba25cf5041931a0ed2062828b4064cb.png'
-  },{
-    id: '005',
-    title: '简书大学堂',
-    jumpUrl: '/c/e048f1a72e3d?utm_medium=index-banner-s&utm_source=desktop',
-    imgUrl: 'https://cdn2.jianshu.io/assets/web/banner-s-6-c4d6335bfd688f2ca1115b42b04c28a7.png'
-  }]
+  topicList: [],
+  articleList: [],
+  recommendList: []
 });
 
 export default (state = defaultState, action) => {
   switch (action.type) {
+    case constants.CHANGE_HOME_DATA:
+      return state.merge({
+        topicList: fromJS(action.topicList),
+        articleList: fromJS(action.articleList),
+        recommendList: fromJS(action.recommendList)
+      });
     default:
       return state;
   }
