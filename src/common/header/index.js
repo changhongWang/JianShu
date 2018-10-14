@@ -5,6 +5,7 @@ import { HeaderWrapper, Logo, SearchWrapper, Nav, NavItem, NavSearch,
   Addition, Button } from './style';
 import { CSSTransition } from 'react-transition-group';
 import { actionCreators } from './store';
+import { actionCreators as loginActionCreators } from '../../pages/login/store';
 import { Link } from 'react-router-dom';
 
 class Header extends Component{
@@ -39,7 +40,7 @@ class Header extends Component{
   }
 
   render () {
-    const {focused, login, handleSearchFocus, handleSearchBlur} = this.props;
+    const {focused, login, handleSearchFocus, handleSearchBlur, logOut} = this.props;
     return (
       <HeaderWrapper>
         <Link to='/'>
@@ -64,7 +65,7 @@ class Header extends Component{
           </SearchWrapper>
           {
             login ?
-              <NavItem className='right'>退出</NavItem>:
+              <NavItem className='right' onClick={logOut}>退出</NavItem>:
               <Link to='/login'><NavItem className='right'>登录</NavItem></Link>
           }
           <NavItem className='right'>Aa</NavItem>
@@ -107,6 +108,9 @@ const mapDispatchToProps = (dispatch) => {
     handleChangePage (page, totalPage) {
       const action = page < totalPage ? actionCreators.changePage(page+1) : actionCreators.changePage(1);
       dispatch(action);
+    },
+    logOut () {
+      dispatch(loginActionCreators.logOut());
     }
   }
 }
