@@ -70,7 +70,9 @@ class Header extends Component{
           }
           <NavItem className='right'>Aa</NavItem>
           <Addition>
-            <Button className='writing'>写文章</Button>
+            <Link to='/write'>
+              <Button className='writing'>写文章</Button>
+            </Link>
             <Button className='reg'>注册</Button>
           </Addition>
         </Nav>

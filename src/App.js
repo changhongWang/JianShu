@@ -5,6 +5,7 @@ import Header from './common/header';
 import Home from './pages/home';
 import Login from './pages/login';
 import Detail from './pages/detail';
+import Write from './pages/write';
 import store from './store';
 
 // Provider把store里的数据都提供给了内部的Header组件
@@ -18,6 +19,7 @@ class App extends Component {
             <Header/>
             <Route path='/' exact component={Home}></Route>
             <Route path='/login' exact component={Login}></Route>
+            <Route path='/write' exact component={Write}></Route>
             <Route path='/detail/:id' exact component={Detail}></Route>
           </div>
         </BrowserRouter>
