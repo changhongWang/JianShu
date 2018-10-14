@@ -9,7 +9,7 @@ class Recommend extends PureComponent {
         return (
           <RecommendItem key={item.get('id')}>
             <a className='pic-wrapper' href={item.get('jumpUrl')}>
-              <img className='recommend-pic' src={item.get('imgUrl')}/>
+              <img className='recommend-pic' src={item.get('imgUrl')} alt=''/>
             </a>
           </RecommendItem>
         )
