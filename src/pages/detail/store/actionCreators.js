@@ -1,6 +1,5 @@
 import axios from 'axios';
 import * as constants from './constants';
-import { fromJS } from 'react-redux';
 
 const changeDetail = (title, content) => ({
   type: constants.CHANGE_DETAIL,
