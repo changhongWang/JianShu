@@ -39,6 +39,7 @@ class Header extends Component{
   }
 
   render () {
+    const {focused, login, handleSearchFocus, handleSearchBlur} = this.props;
     return (
       <HeaderWrapper>
         <Link to='/'>
@@ -50,18 +51,22 @@ class Header extends Component{
           <SearchWrapper>
             <CSSTransition
               timeout={200}
-              in={this.props.focused}
+              in={focused}
               classNames="slide"
             >
               <NavSearch
-                className={this.props.focused ? 'focused' : ''}
-                onFocus={this.props.handleSearchFocus}
-                onBlur={this.props.handleSearchBlur}
+                className={focused ? 'focused' : ''}
+                onFocus={handleSearchFocus}
+                onBlur={handleSearchBlur}
               ></NavSearch>
             </CSSTransition>
             {this.getListArea()}
           </SearchWrapper>
-          <NavItem className='right'>登录</NavItem>
+          {
+            login ?
+              <NavItem className='right'>退出</NavItem>:
+              <Link to='/login'><NavItem className='right'>登录</NavItem></Link>
+          }
           <NavItem className='right'>Aa</NavItem>
           <Addition>
             <Button className='writing'>写文章</Button>
@@ -79,7 +84,8 @@ const mapStateToProps = (state) => {
     mouseIn: state.getIn(['header', 'mouseIn']),
     list: state.getIn(['header', 'list']),
     page: state.getIn(['header', 'page']),
-    totalPage: state.getIn(['header', 'totalPage'])
+    totalPage: state.getIn(['header', 'totalPage']),
+    login: state.getIn(['login', 'login'])
   }
 }
 
